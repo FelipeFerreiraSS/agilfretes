@@ -1,13 +1,13 @@
-package com.example.crud;
+package com.example.agilfretes;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class CrudApplication {
+public class AgilfretesApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(CrudApplication.class, args);
+		SpringApplication.run(AgilfretesApplication.class, args);
 	}
 
 }
