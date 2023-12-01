@@ -1,10 +1,10 @@
-package com.example.agilfretes;
+package com.example.crud;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AgilfretesApplicationTests {
+class CrudApplicationTests {
 
 	@Test
 	void contextLoads() {
