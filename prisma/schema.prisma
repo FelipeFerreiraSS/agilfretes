@@ -1,0 +1,70 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url = env("POSTGRES_PRISMA_URL") // uses connection pooling
+  directUrl = env("POSTGRES_URL_NON_POOLING") // uses a direct connection
+}
+
+// prisma/schema.prisma
+
+// Definindo modelo para admin
+model Admin {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  lastName  String
+
+  @@map("admin") // Define o nome da tabela como "admin" no banco de dados
+}
+
+// Definindo modelo para driver
+model Driver {
+  id        Int      @id @default(autoincrement())
+  email     String   @unique
+  password  String
+  name      String
+  lastName  String
+
+  @@map("driver") // Define o nome da tabela como "driver" no banco de dados
+}
+
+// Definindo modelo para VehicleType
+model VehicleType {
+  id      Int    @id @default(autoincrement())
+  nome    String
+  weight  Float
+  freight Freight[] // Adicionando relação inversa
+
+  @@map("vehicle_type") // Define o nome da tabela como "vehicle_type" no banco de dados
+}
+
+// Definindo modelo para Products
+model Product {
+  id      Int    @id @default(autoincrement())
+  nome    String
+  weight  Float
+  freight Freight[] // Adicionando relação inversa
+
+  @@map("products") // Define o nome da tabela como "products" no banco de dados
+}
+
+// Definindo modelo para Freight
+model Freight {
+  id            Int      @id @default(autoincrement())
+  product       Product  @relation(fields: [productId], references: [id])
+  vehicleType   VehicleType @relation(fields: [vehicleTypeId], references: [id])
+  km            Float
+  priceFreight  Float
+  rate          Float
+  status        String
+  driver        String?
+  date          DateTime
+  productId     Int
+  vehicleTypeId Int
+
+  @@map("freight") // Define o nome da tabela como "freight" no banco de dados
+}
