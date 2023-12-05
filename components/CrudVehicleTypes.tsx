@@ -1,10 +1,20 @@
 import React, { useState, useEffect } from 'react';
+import { Inter } from 'next/font/google'
+import Link from 'next/link'
+
+const inter = Inter({ subsets: ['latin'] })
+
+interface VehicleType {
+  id: number;
+  nome: string;
+  weight: number;
+}
 
 const CrudVehicleTypes: React.FC = () => {
   const [nome, setNome] = useState('');
   const [weight, setWeight] = useState('');
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [vehicleTypes, setVehicleTypes] = useState([]);
+  const [vehicleTypes, setVehicleTypes] = useState<VehicleType[]>([]);
 
   useEffect(() => {
     fetch('/api/vehicleTypes')
@@ -25,7 +35,7 @@ const CrudVehicleTypes: React.FC = () => {
       });
 
       const updatedVehicleType = await response.json();
-      setVehicleTypes((prevVehicleTypes) =>
+      setVehicleTypes((prevVehicleTypes: VehicleType[]) =>
         prevVehicleTypes.map((type) => (type.id === updatedVehicleType.id ? updatedVehicleType : type))
       );
 

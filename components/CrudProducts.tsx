@@ -4,11 +4,17 @@ import Link from 'next/link'
 
 const inter = Inter({ subsets: ['latin'] })
 
+interface Product {
+  id: number;
+  nome: string;
+  weight: number;
+}
+
 const CrudProducts: React.FC = () => {
   const [nome, setNome] = useState('');
   const [weight, setWeight] = useState('');
   const [editingId, setEditingId] = useState<number | null>(null);
-  const [products, setProducts] = useState([]);
+  const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
     fetch('/api/products')
@@ -29,7 +35,7 @@ const CrudProducts: React.FC = () => {
       });
 
       const updatedProduct = await response.json();
-      setProducts((prevProducts) =>
+      setProducts((prevProducts: Product[]) =>
         prevProducts.map((product) => (product.id === updatedProduct.id ? updatedProduct : product))
       );
 
