@@ -5,7 +5,7 @@ import Link from 'next/link'
 const inter = Inter({ subsets: ['latin'] })
 
 import CrudProducts from '../../../components/CrudProducts'
-import CrudVehicleTypes from '../../../components/CrudVehicleTypes.tsx'
+import CrudVehicleTypes from '../../../components/CrudVehicleTypes'
 
 export default function DashboardAdmin() {
   
