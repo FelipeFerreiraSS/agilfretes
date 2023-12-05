@@ -6,6 +6,7 @@ const inter = Inter({ subsets: ['latin'] })
 
 import CrudProducts from '../../../components/CrudProducts'
 import CrudVehicleTypes from '../../../components/CrudVehicleTypes'
+import CrudFreights from '../../../components/CrudFreights'
 
 export default function DashboardAdmin() {
   
@@ -15,6 +16,7 @@ export default function DashboardAdmin() {
     >
       <CrudProducts />
       <CrudVehicleTypes />
+      <CrudFreights />
     </main>
   );
 }
