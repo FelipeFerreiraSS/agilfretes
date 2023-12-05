@@ -5,7 +5,7 @@ const prisma = new PrismaClient();
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
-    const vehicleTypes = await prisma.VehicleType.findMany({
+    const vehicleTypes = await prisma.vehicleType.findMany({
       orderBy: {
         id: 'asc',
       },
@@ -13,7 +13,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(200).json(vehicleTypes);
   } else if (req.method === 'POST') {
     const { nome, weight } = req.body;
-    const newVehicleType = await prisma.VehicleType.create({
+    const newVehicleType = await prisma.vehicleType.create({
       data: {
         nome,
         weight,
@@ -22,14 +22,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     res.status(201).json(newVehicleType);
   } else if (req.method === 'PUT') {
     const { id, nome, weight } = req.body;
-    const updatedVehicleType = await prisma.VehicleType.update({
+    const updatedVehicleType = await prisma.vehicleType.update({
       where: { id: Number(id) },
       data: { nome, weight: parseFloat(weight) },
     });
     res.status(200).json(updatedVehicleType);
   } else if (req.method === 'DELETE') {
     const { id } = req.body;
-    await prisma.VehicleType.delete({
+    await prisma.vehicleType.delete({
       where: { id: Number(id) },
     });
     res.status(204).end();
