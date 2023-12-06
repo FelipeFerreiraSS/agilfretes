@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 
@@ -68,7 +68,7 @@ const CrudFreights: React.FC = () => {
     calcular();
   }, [KmFrete, productId, vehicleTypeId]);
 
-  const handleAddFreight = async (e: React.MouseEvent) => {
+  const handleAddFreight = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     try {
