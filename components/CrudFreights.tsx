@@ -86,15 +86,15 @@ const CrudFreights: React.FC = () => {
     if (selectedProduct && selectedVehicleType) {
       const pesoCalculoProduto = selectedProduct.weight;
       const pesoCalculoVeiculo = selectedVehicleType.weight;
-      const valorFreteCalculado = KmFrete * pesoCalculoProduto * pesoCalculoVeiculo;
+      const valorFreteCalculado = (KmFrete ?? 0) * pesoCalculoProduto * pesoCalculoVeiculo;
 
       setValorFrete((prevValorFrete) => valorFreteCalculado.toFixed(2));
 
-      if (KmFrete <= 100) {
+      if ((KmFrete ?? 0) <= 100) {
         setTaxa((prevTaxa) => valorFreteCalculado * 0.05);
-      } else if (KmFrete <= 200) {
+      } else if ((KmFrete ?? 0) <= 200) {
         setTaxa((prevTaxa) => valorFreteCalculado * 0.07);
-      } else if (KmFrete <= 500) {
+      } else if ((KmFrete ?? 0) <= 500) {
         setTaxa((prevTaxa) => valorFreteCalculado * 0.09);
       } else {
         setTaxa((prevTaxa) => valorFreteCalculado * 0.1);
@@ -149,7 +149,7 @@ const CrudFreights: React.FC = () => {
         body: JSON.stringify({
           productId,
           vehicleTypeId,
-          km: KmFrete,
+          km: (KmFrete ?? 0),
           priceFreight: Number(valorFrete).toFixed(2),
           rate: Number(taxa).toFixed(2),
           status,
