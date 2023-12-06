@@ -198,7 +198,7 @@ const CrudFreights: React.FC = () => {
     setFreights(freights.filter((freight) => freight.id !== id));
   };
 
-  function formatarData(dataString) {
+  function formatarData(dataString: string) {
     const data = new Date(dataString);
     const dia = data.getDate();
     const mes = data.getMonth() + 1;
