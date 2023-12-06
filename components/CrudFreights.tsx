@@ -39,9 +39,9 @@ const CrudFreights: React.FC = () => {
   const [km, setKm] = useState<number | null>(null);
   const [priceFreight, setPriceFreight] = useState<number | null>(null);
   const [rate, setRate] = useState<number | null>(null);
-  const [KmFrete, setKmFrete] = useState<number>(null);
-  const [valorFrete, setValorFrete] = useState<number>(null);
-  const [taxa, setTaxa] = useState<number>(null);
+  const [KmFrete, setKmFrete] = useState<number | null>(null);
+  const [valorFrete, setValorFrete] = useState<number | null>(null);
+  const [taxa, setTaxa] = useState<number | null>(null);
   const [status, setStatus] = useState<string>('');
   const [driver, setDriver] = useState<string>('');
   const [date, setDate] = useState<string>('');
