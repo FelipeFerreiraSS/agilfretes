@@ -25,6 +25,17 @@ const CrudVehicleTypes: React.FC = () => {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
 
+    const existingProduct = vehicleTypes.find((type) => type.nome === nome);
+
+    if (existingProduct) {
+      alert('Este produto já foi adicionado.');
+      return;
+    }
+
+    setNome('');
+    setWeight('');
+    setEditingId(null);
+
     if (editingId !== null) {
       const response = await fetch('/api/vehicleTypes', {
         method: 'PUT',
