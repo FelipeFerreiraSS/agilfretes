@@ -15,14 +15,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     const { productId, vehicleTypeId, km, priceFreight, rate, status, driver, date } = req.body;
     const newFreight = await prisma.freight.create({
       data: {
-        productId,
-        vehicleTypeId,
-        km,
-        priceFreight,
-        rate,
+        productId: Number(productId),
+        vehicleTypeId: Number(vehicleTypeId),
+        km: Number(km),
+        priceFreight: Number(priceFreight),
+        rate: Number(rate),
         status,
         driver,
-        date,
+        date: new Date(date),
       },
     });
     res.status(201).json(newFreight);

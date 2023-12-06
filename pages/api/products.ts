@@ -7,7 +7,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   if (req.method === 'GET') {
     const products = await prisma.product.findMany({
       orderBy: {
-        id: 'asc', // Ordenar pelo ID em ordem ascendente
+        id: 'asc',
       },
     });
     res.status(200).json(products);
