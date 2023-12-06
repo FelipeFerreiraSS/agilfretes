@@ -39,6 +39,9 @@ const CrudFreights: React.FC = () => {
   const [km, setKm] = useState<number | null>(null);
   const [priceFreight, setPriceFreight] = useState<number | null>(null);
   const [rate, setRate] = useState<number | null>(null);
+  const [KmFrete, setKmFrete] = useState<number>(null);
+  const [valorFrete, setValorFrete] = useState<number>(null);
+  const [taxa, setTaxa] = useState<number>(null);
   const [status, setStatus] = useState<string>('');
   const [driver, setDriver] = useState<string>('');
   const [date, setDate] = useState<string>('');
@@ -56,6 +59,49 @@ const CrudFreights: React.FC = () => {
       .then((response) => response.json())
       .then((data) => setVehicleTypes(data));
   }, []);
+
+  useEffect(() => {
+    const calcular = async () => {
+      await calcularFrete();
+    };
+
+    calcular();
+  }, [KmFrete, productId, vehicleTypeId]);
+
+  const handleAddFreight = async (e: React.MouseEvent) => {
+    e.preventDefault();
+
+    try {
+        await calcularFrete();
+        handleSubmit(e);
+      } catch (error) {
+        console.error('Erro ao calcularFrete:', error);
+      }
+  };
+
+	const calcularFrete = () => {
+    const selectedProduct = products.find((product) => product.id === productId);
+    const selectedVehicleType = vehicleTypes.find((vehicleType) => vehicleType.id === vehicleTypeId);
+
+    if (selectedProduct && selectedVehicleType) {
+      const pesoCalculoProduto = selectedProduct.weight;
+      const pesoCalculoVeiculo = selectedVehicleType.weight;
+      const valorFreteCalculado = KmFrete * pesoCalculoProduto * pesoCalculoVeiculo;
+
+      setValorFrete((prevValorFrete) => valorFreteCalculado.toFixed(2));
+
+      if (KmFrete <= 100) {
+        setTaxa((prevTaxa) => valorFreteCalculado * 0.05);
+      } else if (KmFrete <= 200) {
+        setTaxa((prevTaxa) => valorFreteCalculado * 0.07);
+      } else if (KmFrete <= 500) {
+        setTaxa((prevTaxa) => valorFreteCalculado * 0.09);
+      } else {
+        setTaxa((prevTaxa) => valorFreteCalculado * 0.1);
+      }
+    }
+  };
+
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -84,7 +130,6 @@ const CrudFreights: React.FC = () => {
         prevFreights.map((freight) => (freight.id === updatedFreight.id ? updatedFreight : freight))
       );
 
-      // Limpar os campos após a edição
       setProductId(null);
       setVehicleTypeId(null);
       setKm(null);
@@ -104,9 +149,9 @@ const CrudFreights: React.FC = () => {
         body: JSON.stringify({
           productId,
           vehicleTypeId,
-          km,
-          priceFreight,
-          rate,
+          km: KmFrete,
+          priceFreight: Number(valorFrete).toFixed(2),
+          rate: Number(taxa).toFixed(2),
           status,
           driver,
           date,
@@ -115,7 +160,6 @@ const CrudFreights: React.FC = () => {
       const newFreight = await response.json();
       setFreights([...freights, newFreight]);
 
-      // Limpar os campos após a adição
       setProductId(null);
       setVehicleTypeId(null);
       setKm(null);
@@ -154,105 +198,150 @@ const CrudFreights: React.FC = () => {
     setFreights(freights.filter((freight) => freight.id !== id));
   };
 
+  function formatarData(dataString) {
+    const data = new Date(dataString);
+    const dia = data.getDate();
+    const mes = data.getMonth() + 1;
+    const ano = data.getFullYear();
+    
+    const dataFormatada = `${(dia < 10 ? '0' : '') + dia}/${(mes < 10 ? '0' : '') + mes}/${ano}`;
+    
+    return dataFormatada;
+  }
+
   return (
     <div>
-      <h2>Gerencie seus fretes:</h2>
-      <form onSubmit={handleSubmit}>
-        {/* Dropdown para selecionar o produto */}
-        <label>
-          Produto:
-          <select value={productId || ''} onChange={(e) => setProductId(Number(e.target.value))}>
-            <option value={0} >Selecione um produto</option>
-            {products.map((product) => (
-              <option key={product.id} value={product.id}>
-                {product.nome}
-              </option>
-            ))}
-          </select>
-        </label>
+      <h2 className="text-xl mt-5 mb-5 font-bold">Gerencie seus fretes:</h2>
+      <form onSubmit={handleAddFreight}>
+        <div className=" grid grid-cols-1 gap-4 sm:grid-cols-2 md:grid-cols-3 lg:gap-8">
+          <div>
+            <div className="mr-10 mb-10 flex flex-col">
+              <label className="block text-xs font-medium text-gray-700">
+                Produto:
+              </label>
+              <select 
+                className="mt-1 w-52 rounded-md border-gray-200 shadow-sm sm:text-sm" 
+                value={productId || ''} onChange={(e) => setProductId(Number(e.target.value))}>
+                <option value={0} >Selecione um produto</option>
+                {products.map((product) => (
+                  <option key={product.id} value={product.id}>
+                    {product.nome}
+                  </option>
+                ))}
+              </select>
+            </div>
+            
+            <div className="mr-10 mb-10 flex flex-col">
+              <label className="block text-xs font-medium text-gray-700">
+              Tipo de Veículo:
+              </label>
+              <select 
+                className="mt-1 w-64 rounded-md border-gray-200 shadow-sm sm:text-sm"
+                value={vehicleTypeId || ''} onChange={(e) => setVehicleTypeId(Number(e.target.value))}>
+                <option value={0}>Selecione um tipo de veículo</option>
+                {vehicleTypes.map((vehicleType) => (
+                  <option key={vehicleType.id} value={vehicleType.id}>
+                    {vehicleType.nome}
+                  </option>
+                ))}
+              </select>
+            </div>
+          </div>
 
-        {/* Dropdown para selecionar o tipo de veículo */}
-        <label>
-          Tipo de Veículo:
-          <select value={vehicleTypeId || ''} onChange={(e) => setVehicleTypeId(Number(e.target.value))}>
-            <option value={0}>Selecione um tipo de veículo</option>
-            {vehicleTypes.map((vehicleType) => (
-              <option key={vehicleType.id} value={vehicleType.id}>
-                {vehicleType.nome}
-              </option>
-            ))}
-          </select>
-        </label>
+          <div>
+            <div className="mr-10 mb-10 flex flex-col">
+              <label className="block text-xs font-medium text-gray-700">
+                Quilômetros:
+              </label>
+              <input 
+                type="number" 
+                value={KmFrete} 
+                onChange={(e) => setKmFrete(Number(e.target.value))} 
+                className="mt-1 w-32 rounded-md border-gray-200 shadow-sm sm:text-sm"
+              />
+            </div>
 
-        {/* Outros campos */}
-        <label>
-          Quilômetros:
-          <input type="number" value={km || ''} onChange={(e) => setKm(Number(e.target.value))} />
-        </label>
+            <div className="mr-10 mb-10 flex flex-col">
+              <label className="block text-xs font-medium text-gray-700">
+                Status:
+              </label>
+              <select 
+                className="mt-1 w-44 rounded-md border-gray-200 shadow-sm sm:text-sm"
+                value={status || ''} onChange={(e) => setStatus(String(e.target.value))}>
+                <option value={""}>Selecione o status</option>
+                <option value={"Ativo"}>Ativo</option>
+                <option value={"Cancelado"}>Cancelado</option>
+                ))}
+              </select>
+            </div>
+          </div>
 
-        <label>
-          Preço do Frete:
-          <input type="number" value={priceFreight || ''} onChange={(e) => setPriceFreight(Number(e.target.value))} />
-        </label>
-
-        <label>
-          Taxa:
-          <input type="number" value={rate || ''} onChange={(e) => setRate(Number(e.target.value))} />
-        </label>
-
-        <label>
-          Status:
-          <input type="text" value={status} onChange={(e) => setStatus(e.target.value)} />
-        </label>
-
-        <label>
-          Motorista:
-          <input type="text" value={driver} onChange={(e) => setDriver(e.target.value)} />
-        </label>
-
-        <label>
-          Data:
-          <input type="text" value={date} onChange={(e) => setDate(e.target.value)} />
-        </label>
-
-        <button type="submit">{editingId !== null ? 'Atualizar Frete' : 'Adicionar Frete'}</button>
+          <div>
+            <div className="mb-10 flex flex-col">
+              <label className="block text-xs font-medium text-gray-700">
+                Data:
+              </label>
+              <input 
+                type="date" 
+                value={date} 
+                onChange={(e) => setDate(e.target.value)} 
+                className="mt-1 w-40 rounded-md border-gray-200 shadow-sm sm:text-sm"
+              />
+            </div>
+            <button 
+              type="submit"
+              className="inline-block mb-5 rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
+            >
+              {editingId !== null ? 'Atualizar Frete' : 'Adicionar Frete'}
+            </button>
+          </div>
+        </div>
       </form>
 
-      <div>
-        {/* Tabela para exibir os freights existentes */}
-        <table>
-          <thead>
+      <div className="overflow-x-auto rounded-lg border border-gray-200">
+        <table className="min-w-full divide-y-2 divide-gray-200 bg-white text-sm">
+          <thead className="ltr:text-left rtl:text-right">
             <tr>
-              <th>ID</th>
-              <th>Produto</th>
-              <th>Tipo de Veículo</th>
-              <th>Quilômetros</th>
-              <th>Preço do Frete</th>
-              <th>Taxa</th>
-              <th>Status</th>
-              <th>Motorista</th>
-              <th>Data</th>
-              <th>Editar</th>
-              <th>Deletar</th>
+              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">ID</th>
+              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Produto</th>
+              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Tipo de Veículo</th>
+              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Quilômetros</th>
+              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Preço do Frete</th>
+              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Taxa</th>
+              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Status</th>
+              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Motorista</th>
+              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Data</th>
+              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Editar</th>
+              <th className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">Deletar</th>
             </tr>
           </thead>
-          <tbody>
+          <tbody className="divide-y divide-gray-200">
             {freights.map((freight) => (
               <tr key={freight.id}>
-                <td>{freight.id}</td>
-                <td>{products[freight.productId]?.nome || 'Carregando...'}</td>
-				<td>{vehicleTypes[freight.vehicleTypeId]?.nome || 'Carregando...'}</td>
-                <td>{freight.km}</td>
-                <td>{freight.priceFreight}</td>
-                <td>{freight.rate}</td>
-                <td>{freight.status}</td>
-                <td>{freight.driver}</td>
-                <td>{freight.date}</td>
+                <td className="whitespace-nowrap px-4 py-2 font-medium text-gray-900">{freight.id}</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700">{products.find((product) => product.id === freight.productId)?.nome || 'Carregando...'}</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700">{vehicleTypes.find((vehicleType) => vehicleType.id === freight.vehicleTypeId)?.nome || 'Carregando...'}</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700">{freight.km}</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700">{"R$ " + (freight.priceFreight).toFixed(2)}</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700">{"R$ " + (freight.rate).toFixed(2)}{" (" + (freight.rate * 100 / freight.priceFreight).toFixed(0) + "%" + ")" }</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700">{freight.status}</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700">{freight.driver}</td>
+                <td className="whitespace-nowrap px-4 py-2 text-gray-700">{formatarData(freight.date)}</td>
                 <td>
-                  <button onClick={() => handleEdit(freight.id)}>Editar</button>
+                  <button 
+                    onClick={() => handleEdit(freight.id)}
+                    className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
+                  >
+                    Editar
+                  </button>
                 </td>
                 <td>
-                  <button onClick={() => handleDelete(freight.id)}>Deletar</button>
+                  <button 
+                    onClick={() => handleDelete(freight.id)}
+                    className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
+                  >
+                    Deletar
+                  </button>
                 </td>
               </tr>
             ))}
