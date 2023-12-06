@@ -80,7 +80,7 @@ const CrudProducts: React.FC = () => {
 
   return (
     <div>
-      <h2>Gerencie seu produtos:</h2>
+      <h2 className="text-xl mt-5 mb-5 font-bold">Gerencie seu produtos:</h2>
       <form onSubmit={handleSubmit}>
         <div className="flex mb-10">
           <div className="mr-10">
