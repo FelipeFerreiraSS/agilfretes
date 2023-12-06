@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import { Inter } from 'next/font/google'
 import Link from 'next/link'
 
@@ -61,7 +61,7 @@ const CrudFreightsDrivers: React.FC = () => {
     }
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
     if (editingId !== null) {
@@ -91,7 +91,7 @@ const CrudFreightsDrivers: React.FC = () => {
     }
   };
 
-  function formatarData(dataString) {
+  function formatarData(dataString: string) {
     const data = new Date(dataString);
     const dia = data.getDate();
     const mes = data.getMonth() + 1;
