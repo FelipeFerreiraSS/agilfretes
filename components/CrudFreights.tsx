@@ -267,11 +267,11 @@ const CrudFreights: React.FC = () => {
               </label>
               <select 
                 className="mt-1 w-44 rounded-md border-gray-200 shadow-sm sm:text-sm"
-                value={status || ''} onChange={(e) => setStatus(String(e.target.value))}>
+                value={status || ''} onChange={(e) => setStatus(String(e.target.value))}
+              >
                 <option value={""}>Selecione o status</option>
                 <option value={"Ativo"}>Ativo</option>
                 <option value={"Cancelado"}>Cancelado</option>
-                ))}
               </select>
             </div>
           </div>

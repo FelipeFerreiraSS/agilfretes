@@ -116,12 +116,12 @@ const CrudFreightsDrivers: React.FC = () => {
                 </label>
                 <select 
                   className="mt-1 w-44 rounded-md border-gray-200 shadow-sm sm:text-sm"
-                  value={status || ''} onChange={(e) => setStatus(String(e.target.value))}>
+                  value={status || ''} onChange={(e) => setStatus(String(e.target.value))}
+                >
                   <option value={""}>Selecione o status</option>
                   <option value={"Aceito"}>Aceito</option>
                   <option value={"Rota de entrega"}>Rota de entrega</option>
                   <option value={"Finalizado"}>Finalizado</option>
-                  ))}
                 </select>
               </div>
               <div className="mr-10 flex flex-col">
