@@ -255,7 +255,7 @@ const CrudFreights: React.FC = () => {
               </label>
               <input 
                 type="number" 
-                value={KmFrete} 
+                value={KmFrete !== null ? KmFrete.toString() : ''} 
                 onChange={(e) => setKmFrete(Number(e.target.value))} 
                 className="mt-1 w-32 rounded-md border-gray-200 shadow-sm sm:text-sm"
               />
