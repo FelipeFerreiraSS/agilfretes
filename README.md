@@ -13,15 +13,15 @@ O [Ágil Fretes](https://agilfretes.vercel.app/) , a solução inovadora que con
 
 ## ⚙️ Funcionalidades
 
-- [x] CRUD de veiculos, produtos e fretes
-- [x] Validações de formulario veiculos, produtos
+- [x] CRUD de veículos, produtos e fretes
+- [x] Validação de formulário, veículos e produtos
 - [x] Banco de dados PostgreSQL
-- [x] Lógica de calculo de novos fretes
+- [x] Lógica de cálculo de novos fretes
 - [x] Rotas com diferentes funções
 - [x] Deploy
+- [x] Emitir relatório dos fretes finalizados no dia anterior
 - [ ] Autenticação
 - [ ] Testes
-- [ ] Emitir relatorio
 
 ## 🚀 Como executar o projeto
 
