@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "types": ["jspdf-autotable"],
+    "types": ["jspdf", "jspdf-autotable"],
     "target": "es5",
     "lib": ["dom", "dom.iterable", "esnext"],
     "allowJs": true,
