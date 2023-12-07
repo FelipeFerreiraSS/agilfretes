@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Inter } from 'next/font/google';
-import * as jsPDF from 'jspdf';
+import jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
 const inter = Inter({ subsets: ['latin'] });
