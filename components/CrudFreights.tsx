@@ -186,7 +186,7 @@ const CrudFreights: React.FC = () => {
       setVehicleTypeId(freightToEdit.vehicleTypeId);
       setKmFrete(freightToEdit.km);
       setValorFrete(freightToEdit.priceFreight.toFixed(2));
-      setTaxa(freightToEdit.rate.toFixed(2));
+      setTaxa(parseFloat(freightToEdit.rate.toFixed(2)));
       setStatus(freightToEdit.status);
       setDriver(freightToEdit.driver || '');
       setDate(freightToEdit.date);
