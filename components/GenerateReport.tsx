@@ -50,7 +50,7 @@ export default function GenerateReport() {
     const headers = ['ID', 'Produto', 'Veiculo', 'Km', 'Preço do Frete', 'Taxa', 'Status', 'Motorista', 'Data',];
     const rows = data.map((item) => [item.id, item.product.nome, item.vehicleType.nome, item.km, item.priceFreight, item.rate, item.status, item.driver, formatarData(item.date),]);
 
-    pdf.autoTable({
+    (pdf as any).autoTable({
       startY: 20,
       head: [headers],
       body: rows,
