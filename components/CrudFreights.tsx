@@ -107,6 +107,9 @@ const CrudFreights: React.FC = () => {
     e.preventDefault();
 
     if (editingId !== null) {
+      const localDate = new Date(date + 'T00:00:00');
+      const isoDate = localDate.toISOString();
+      
       const response = await fetch('/api/freight', {
         method: 'PUT',
         headers: {
@@ -116,12 +119,12 @@ const CrudFreights: React.FC = () => {
           id: editingId,
           productId,
           vehicleTypeId,
-          km,
-          priceFreight,
-          rate,
+          km: (KmFrete ?? 0),
+          priceFreight: parseFloat(Number(valorFrete).toFixed(2)),
+          rate: parseFloat(Number(taxa).toFixed(2)),
           status,
           driver,
-          date,
+          date: isoDate,
         }),
       });
 
@@ -141,6 +144,9 @@ const CrudFreights: React.FC = () => {
 
       setEditingId(null);
     } else {
+      const localDate = new Date(date + 'T00:00:00');
+      const isoDate = localDate.toISOString();
+
       const response = await fetch('/api/freight', {
         method: 'POST',
         headers: {
@@ -154,7 +160,7 @@ const CrudFreights: React.FC = () => {
           rate: Number(taxa).toFixed(2),
           status,
           driver,
-          date,
+          date: isoDate,
         }),
       });
       const newFreight = await response.json();
@@ -178,9 +184,9 @@ const CrudFreights: React.FC = () => {
     if (freightToEdit) {
       setProductId(freightToEdit.productId);
       setVehicleTypeId(freightToEdit.vehicleTypeId);
-      setKm(freightToEdit.km);
-      setPriceFreight(freightToEdit.priceFreight);
-      setRate(freightToEdit.rate);
+      setKmFrete(freightToEdit.km);
+      setValorFrete(freightToEdit.priceFreight.toFixed(2));
+      setTaxa(freightToEdit.rate.toFixed(2));
       setStatus(freightToEdit.status);
       setDriver(freightToEdit.driver || '');
       setDate(freightToEdit.date);
@@ -256,7 +262,13 @@ const CrudFreights: React.FC = () => {
               <input 
                 type="number" 
                 value={KmFrete !== null ? KmFrete.toString() : ''} 
-                onChange={(e) => setKmFrete(Number(e.target.value))} 
+                onChange={(e) => {
+                  const newKmFrete = Number(e.target.value);
+                  if (!isNaN(newKmFrete)) {
+                    setKmFrete(newKmFrete);
+                    calcularFrete(); // Chama calcularFrete quando KmFrete é alterado manualmente
+                  }
+                }}
                 className="mt-1 w-32 rounded-md border-gray-200 shadow-sm sm:text-sm"
               />
             </div>
