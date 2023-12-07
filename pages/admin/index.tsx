@@ -8,6 +8,7 @@ import CrudProducts from '../../components/CrudProducts'
 import CrudVehicleTypes from '../../components/CrudVehicleTypes'
 import CrudFreights from '../../components/CrudFreights'
 import Header from '../../components/Header'
+import GenerateReport from '../../components/GenerateReport'
 
 export default function Admin() {
   
@@ -18,6 +19,7 @@ export default function Admin() {
         className={`min-h-screen p-24 pt-0 ${inter.className}`}
       >
         <h1 className="text-3xl mt-5 mb-5 font-bold">Bem vindo, administrador</h1>
+        <GenerateReport />
         <CrudProducts />
         <CrudVehicleTypes />
         <CrudFreights />
