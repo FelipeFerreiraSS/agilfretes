@@ -74,7 +74,7 @@ const CrudFreightsDrivers: React.FC = () => {
           id: editingId,
           status,
           driver,
-          date,
+          date: new Date().toISOString(),
         }),
       });
 
@@ -135,17 +135,7 @@ const CrudFreightsDrivers: React.FC = () => {
                   className="mt-1 w-32 rounded-md border-gray-200 shadow-sm sm:text-sm"
                 />
               </div>
-              <div className="mr-10 flex flex-col">
-                <label className="block text-xs font-medium text-gray-700">
-                  Data:
-                </label>
-                <input 
-                  type="text" 
-                  value={date} 
-                  onChange={(e) => setDate(e.target.value)}
-                  className="mt-1 w-48 rounded-md border-gray-200 shadow-sm sm:text-sm"
-                />
-              </div>
+              
               <button 
                 type="submit"
                 className="inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
