@@ -1,6 +1,5 @@
 import { useState } from 'react';
 import { Inter } from 'next/font/google';
-import jsPDF from 'jspdf';
 import * as jsPDF from 'jspdf';
 import 'jspdf-autotable';
 
