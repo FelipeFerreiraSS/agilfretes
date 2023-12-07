@@ -1,40 +1,83 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+<div align="center">
+  <img src="./public/LogoNomeFundo.png" alt="Descrição da imagem">
+</div>
+<h1 align="center">Ágil Fretes</h1>
 
-## Getting Started
+<h4 align="center"> 
+	🚧 Em construção 🚧
+</h4>
 
-First, run the development server:
+## 💻 Sobre o projeto
+
+O [Ágil Fretes](https://agilfretes.vercel.app/) , a solução inovadora que conecta empresas que precisam de transporte rápido e eficiente a motoristas experientes e prontos para aceitar o desafio. Com o Ágil Fretes, o processo de entrega nunca foi tão fácil e rápido.
+
+## ⚙️ Funcionalidades
+
+- [x] CRUD de veiculos, produtos e fretes
+- [x] Validações de formulario veiculos, produtos
+- [x] Banco de dados PostgreSQL
+- [x] Lógica de calculo de novos fretes
+- [x] Rotas com diferentes funções
+- [x] Deploy
+- [ ] Autenticação
+- [ ] Testes
+- [ ] Emitir relatorio
+
+## 🚀 Como executar o projeto
+
+### Pré-requisitos
+
+Antes de começar, você vai precisar ter instalado em sua máquina as seguintes ferramentas:
+[Git](https://git-scm.com), [Node.js](https://nodejs.org/en/). 
+Além disso, é bom ter um editor para trabalhar com o código, como [VSCode](https://code.visualstudio.com/)
+
+### Rodando o projeto - NextJS
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+# Clone este repositório 
+$ git clone <https://github.com/FelipeFerreiraSS/agilfretes.git>
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+# Acesse a pasta do projeto no terminal/cmd
+$ cd agilfretes
 
-You can start editing the page by modifying `pages/index.tsx`. The page auto-updates as you edit the file.
+# Instale as dependências
+$ npm install
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.ts`.
+# Execute a aplicação em modo de desenvolvimento
+$ npm run dev
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+# O cliente NextJs iniciará e abrirá automaticamente em seu navegador padrão em <http://localhost:3000>
+````
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## 🛠 Tecnologias
 
-## Learn More
+As seguintes ferramentas foram usadas na construção do projeto:
 
-To learn more about Next.js, take a look at the following resources:
+- [ReactJs](https://pt-br.reactjs.org/)
+- [NextJs](https://nextjs.org/)
+- [TailwindCSS](https://tailwindcss.com/)
+- [prisma](https://www.prisma.io/)
+- [PostgreSQL](https://www.postgresql.org/)
+- [Vercel](https://vercel.com/)
+- [Vercel Postgres](https://vercel.com/docs/storage/vercel-postgres)
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+<a href="https://felipeferreira.dev.br/">
+ <img style="border-radius: 50%;" src="https://github.com/FelipeFerreiraSS.png" width="100px;" alt=""/>
+ <br />
+ <sub><b>Felipe Ferreira</b></sub></a> <a href="https://felipeferreira.dev.br/" title="Dev Front-End">🚀</a>
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
+Feito com ❤️ por Felipe Ferreira 👋🏽 Entre em contato!
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+[![Linkedin Badge](https://img.shields.io/badge/-FelipeFerreira-blue?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/felipeferreiradev/)](https://www.linkedin.com/in/felipeferreiradev/) 
+[![Gmail Badge](https://img.shields.io/badge/-felipeferreirasilva.dev@gmail.com-c14438?style=flat-square&logo=Gmail&logoColor=white&link=mailto:felipeferreirasilva.dev@gmail.com)](mailto:felipeferreirasilva.dev@gmail.com)
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+---
+
+## 📝 Licença
+
+Este projeto esta sobe a licença [MIT](./LICENSE).
+
+Feito com ❤️ por Felipe Ferreira 👋🏽 [Entre em contato!](https://www.linkedin.com/in/felipeferreiradev/)
+
+---
