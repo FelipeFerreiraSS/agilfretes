@@ -65,11 +65,14 @@ export default function GenerateReport() {
   return (
     <div className="flex items-center">
       <h2 className="text-xl mt-5 mb-5 font-bold">Gere um relatório de todos as entregas finalizadas ontem:</h2>
-      <button 
-        className="ml-5 inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
-        onClick={generate}>
-        Baixar Relatório
-      </button>
+      <form onSubmit={generate}>
+        <button 
+          className="ml-5 inline-block rounded bg-indigo-600 px-4 py-2 text-xs font-medium text-white hover:bg-indigo-700"
+          type="submit"
+        >
+          Baixar Relatório
+        </button>
+      </form>
     </div>
   );
 }
